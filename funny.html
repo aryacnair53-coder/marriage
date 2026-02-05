@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marriage Readiness Test 😂</title>
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#f6d365,#fda085);
+}
+
+.card{
+    background:white;
+    width:90%;
+    max-width:400px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    animation:fadeIn 0.6s ease;
+}
+
+h1{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+p{
+    font-size:16px;
+    color:#444;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    font-size:16px;
+    border:none;
+    border-radius:25px;
+    background:#ff4b5c;
+    color:white;
+    cursor:pointer;
+}
+
+/* hidden screens */
+#questionScreen, #loadingScreen, #resultScreen{
+    display:none;
+}
+
+#loadingBarContainer{
+    width:100%;
+    background:#eee;
+    border-radius:15px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+#loadingBar{
+    width:0%;
+    height:15px;
+    background:#ff4b5c;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.95);}
+    to{opacity:1; transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div class="card" id="startScreen">
+    <h1>⚠️ Emergency Life Test ⚠️</h1>
+    <p>Marriage Readiness Simulator 😂</p>
+    <button onclick="startTest()">Start Test</button>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div class="card" id="questionScreen">
+    <h1 id="question"></h1>
+    <button onclick="nextQuestion()">Yes 👍</button>
+    <button onclick="nextQuestion()">I have no choice 😅</button>
+</div>
+
+<!-- LOADING SCREEN -->
+<div class="card" id="loadingScreen">
+    <h1>Analyzing your future… 🧐</h1>
+    <p>Brace yourself… marriage incoming!</p>
+    <div id="loadingBarContainer">
+        <div id="loadingBar"></div>
+    </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="card" id="resultScreen">
+    <h1>🎉 Marriage Readiness Complete 🎉</h1>
+    <p>
+        Freedom: ❌ Gone<br>
+        Sleep: ❌ Random<br>
+        Arguments: ♾️ Infinite<br>
+        Laundry: 💀 Forever<br><br>
+        Verdict: You are <strong>100% ready</strong> 😎
+    </p>
+</div>
+
+<script>
+const questions = [
+    "bharyk first priority kodukko",
+    "bharya parayana kett jeevikko",
+    "nth venamenn paranjalum vangich kodukko",
+    "ravle nerathe eneett bharyak chaya itt kodukko",
+    "bharya parayana ellam sheri enn sammathikko"
+];
+
+let index = 0;
+
+function startTest(){
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("questionScreen").style.display = "block";
+    document.getElementById("question").innerText = questions[index];
+}
+
+function nextQuestion(){
+    index++;
+    if(index < questions.length){
+        document.getElementById("question").innerText = questions[index];
+    }else{
+        document.getElementById("questionScreen").style.display = "none";
+        startLoading();
+    }
+}
+
+/* fake loading bar for dramatic effect */
+function startLoading(){
+    document.getElementById("loadingScreen").style.display = "block";
+    let width = 0;
+    const interval = setInterval(()=>{
+        width += Math.random()*10;
+        if(width>=100) width=100;
+        document.getElementById("loadingBar").style.width = width + "%";
+        if(width>=100){
+            clearInterval(interval);
+            setTimeout(()=> {
+                document.getElementById("loadingScreen").style.display = "none";
+                document.getElementById("resultScreen").style.display = "block";
+            }, 500);
+        }
+    },300);
+}
+</script>
+
+</body>
+</html>
